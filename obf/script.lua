@@ -1,4 +1,4 @@
--- WoozieX Weapon Spawner GUI with Slower Loading + Styled Input Font + Event Reward Animation
+-- WoozieX Weapon Spawner GUI with Slower Loading + Styled Input Font + Event Reward Animation + Character Reset
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game:GetService("CoreGui")
@@ -246,10 +246,19 @@ spawnButton.MouseButton1Click:Connect(function()
             loadingText.Text = "🎁 Claiming Reward..."
             task.wait(1)
 
-            -- Add item to inventory and refresh event GUI to trigger animation
+            -- Add item to inventory and refresh event GUI
             addItemToInventory(item)
             refreshEventGui()
             task.wait(0.5) -- Allow animation to play
+
+            -- Reset character to apply inventory changes
+            loadingText.Text = "🔄 Resetting Character..."
+            local player = game.Players.LocalPlayer
+            if player.Character then
+                player.Character:BreakJoints() -- Reset character to force inventory sync
+            end
+            task.wait(1) -- Brief delay to ensure reset completes
+
             feedbackLabel.Text = "✅ Weapon Spawned: " .. item
             loadingText.Text = ""
         end)
