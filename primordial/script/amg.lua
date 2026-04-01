@@ -1,6 +1,6 @@
 --[[
     🐰 MM2 ULTIMATE EASTER HUB 2026 🥚
-    UI: "Premium Dark Easter" - MOBILE FRIENDLY COMPACT EDITION 📱
+    UI: "Premium Dark Easter" - ULTRA COMPACT MOBILE EDITION 📱
     Logic: Remote-Based Stats, Aggressive ESP
 ]]
 
@@ -37,7 +37,7 @@ local Settings = {
 
 local Stats = { StartTime = tick(), Collected = 0, CPH = 0, Bag = 0, MaxBag = 40 }
 
--- 🎨 PREMIUM DARK EASTER PALETTE 🎨
+-- 🎨 PREMIUM DARK EASTER PALETTE
 local Colors = {
     Background = Color3.fromRGB(26, 26, 34),
     PanelBg = Color3.fromRGB(35, 35, 45),
@@ -68,9 +68,9 @@ task.spawn(function()
     if s and has then Stats.MaxBag = 50 else Stats.MaxBag = 40 end
 end)
 
--- 4. UI CONSTRUCTION (MOBILE SIZED)
+-- 4. UI CONSTRUCTION (ULTRA COMPACT)
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "MM2EasterMobile"
+ScreenGui.Name = "MM2EasterMobileUltra"
 ScreenGui.Parent = CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -78,11 +78,11 @@ local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Colors.Background
-MainFrame.Position = UDim2.new(0.5, -180, 0.5, -135)
-MainFrame.Size = UDim2.new(0, 360, 0, 270) -- Ovela menšia výška! (Z 450 na 270)
+MainFrame.Position = UDim2.new(0.5, -170, 0.5, -105)
+MainFrame.Size = UDim2.new(0, 340, 0, 210) -- EXTRA MALE NA VYSKU! (210px)
 MainFrame.ClipsDescendants = true
 
-local UICorner = Instance.new("UICorner"); UICorner.CornerRadius = UDim.new(0, 10); UICorner.Parent = MainFrame
+local UICorner = Instance.new("UICorner"); UICorner.CornerRadius = UDim.new(0, 8); UICorner.Parent = MainFrame
 local UIStroke = Instance.new("UIStroke"); UIStroke.Color = Colors.AccentPurple; UIStroke.Thickness = 2; UIStroke.Parent = MainFrame; UIStroke.Transparency = 0.5
 
 -- 🥚 SUBTLE FALLING EGGS
@@ -91,37 +91,37 @@ task.spawn(function()
     while true do
         if MainFrame.Visible then
             local egg = Instance.new("Frame"); egg.Parent = MainFrame; egg.ZIndex = 0; egg.BackgroundColor3 = EggColors[math.random(1, #EggColors)]; egg.BorderSizePixel = 0
-            local size = math.random(5, 9); egg.Size = UDim2.new(0, size, 0, size * 1.3); egg.Position = UDim2.new(math.random(), 0, -0.1, 0); egg.BackgroundTransparency = 0.85
+            local size = math.random(5, 9); egg.Size = UDim2.new(0, size, 0, size * 1.3); egg.Position = UDim2.new(math.random(), 0, -0.2, 0); egg.BackgroundTransparency = 0.85
             egg.Rotation = math.random(-20, 20); local fCorner = Instance.new("UICorner"); fCorner.CornerRadius = UDim.new(0.5, 0); fCorner.Parent = egg
-            local tween = TweenService:Create(egg, TweenInfo.new(math.random(4, 8), Enum.EasingStyle.Linear), {Position = UDim2.new(egg.Position.X.Scale + (math.random(-1,1)/10), 0, 1.1, 0), Rotation = egg.Rotation + math.random(-30, 30)})
+            local tween = TweenService:Create(egg, TweenInfo.new(math.random(4, 8), Enum.EasingStyle.Linear), {Position = UDim2.new(egg.Position.X.Scale + (math.random(-1,1)/10), 0, 1.2, 0), Rotation = egg.Rotation + math.random(-30, 30)})
             tween:Play(); Debris:AddItem(egg, 8)
         end
-        wait(0.3)
+        wait(0.4)
     end
 end)
 
--- Dragging & Titles
-local Title = Instance.new("TextLabel"); Title.Parent = MainFrame; Title.BackgroundTransparency = 1; Title.Position = UDim2.new(0, 0, 0, 5); Title.Size = UDim2.new(1, 0, 0, 20); Title.Font = Enum.Font.GothamBlack; Title.Text = "🐰 VOFFLAN HUB 🌸"; Title.TextColor3 = Colors.TextWhite; Title.TextSize = 16
-local SubTitle = Instance.new("TextLabel"); SubTitle.Parent = MainFrame; SubTitle.BackgroundTransparency = 1; SubTitle.Position = UDim2.new(0, 0, 0, 22); SubTitle.Size = UDim2.new(1, 0, 0, 12); SubTitle.Font = Enum.Font.GothamBold; SubTitle.Text = "✨ EASTER EVENT 2026 ✨"; SubTitle.TextColor3 = Colors.AccentPurple; SubTitle.TextSize = 10
+-- Dragging & Combined Title (Šetrí miesto)
+local Title = Instance.new("TextLabel"); Title.Parent = MainFrame; Title.BackgroundTransparency = 1; Title.Position = UDim2.new(0, 10, 0, 2); Title.Size = UDim2.new(0.5, 0, 0, 20); Title.Font = Enum.Font.GothamBlack; Title.Text = "🐰 VOFFLAN HUB"; Title.TextColor3 = Colors.TextWhite; Title.TextSize = 13; Title.TextXAlignment = Enum.TextXAlignment.Left
+local SubTitle = Instance.new("TextLabel"); SubTitle.Parent = MainFrame; SubTitle.BackgroundTransparency = 1; SubTitle.Position = UDim2.new(0.5, -10, 0, 2); SubTitle.Size = UDim2.new(0.5, 0, 0, 20); SubTitle.Font = Enum.Font.GothamBold; SubTitle.Text = "✨ EASTER 2026 ✨"; SubTitle.TextColor3 = Colors.AccentPurple; SubTitle.TextSize = 10; SubTitle.TextXAlignment = Enum.TextXAlignment.Right
 
 local dragging, dragInput, dragStart, startPos
 local function update(input) local delta = input.Position - dragStart; MainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y) end
 MainFrame.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then dragging = true; dragStart = input.Position; startPos = MainFrame.Position; input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then dragging = false end end) end end)
 MainFrame.InputChanged:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then if dragging then update(input) end end end)
 
--- Tabs (Compact)
-local TabContainer = Instance.new("ScrollingFrame"); TabContainer.Parent = MainFrame; TabContainer.BackgroundTransparency = 1; TabContainer.Position = UDim2.new(0, 10, 0, 38); TabContainer.Size = UDim2.new(1, -20, 0, 28); TabContainer.CanvasSize = UDim2.new(1.5, 0, 0, 0); TabContainer.ScrollBarThickness = 0
-local TabListLayout = Instance.new("UIListLayout"); TabListLayout.Parent = TabContainer; TabListLayout.FillDirection = Enum.FillDirection.Horizontal; TabListLayout.Padding = UDim.new(0, 5)
+-- Tabs (Ultra Compact)
+local TabContainer = Instance.new("ScrollingFrame"); TabContainer.Parent = MainFrame; TabContainer.BackgroundTransparency = 1; TabContainer.Position = UDim2.new(0, 6, 0, 22); TabContainer.Size = UDim2.new(1, -12, 0, 24); TabContainer.CanvasSize = UDim2.new(1.5, 0, 0, 0); TabContainer.ScrollBarThickness = 0
+local TabListLayout = Instance.new("UIListLayout"); TabListLayout.Parent = TabContainer; TabListLayout.FillDirection = Enum.FillDirection.Horizontal; TabListLayout.Padding = UDim.new(0, 4)
 
 -- Content Area
-local ContentContainer = Instance.new("ScrollingFrame"); ContentContainer.Parent = MainFrame; ContentContainer.BackgroundTransparency = 1; ContentContainer.Position = UDim2.new(0, 10, 0, 72); ContentContainer.Size = UDim2.new(1, -20, 1, -122); ContentContainer.ScrollBarThickness = 2; ContentContainer.ScrollBarImageColor3 = Colors.AccentPurple
-local UIListLayout = Instance.new("UIListLayout"); UIListLayout.Parent = ContentContainer; UIListLayout.Padding = UDim.new(0, 6); UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+local ContentContainer = Instance.new("ScrollingFrame"); ContentContainer.Parent = MainFrame; ContentContainer.BackgroundTransparency = 1; ContentContainer.Position = UDim2.new(0, 6, 0, 50); ContentContainer.Size = UDim2.new(1, -12, 1, -80); ContentContainer.ScrollBarThickness = 2; ContentContainer.ScrollBarImageColor3 = Colors.AccentPurple
+local UIListLayout = Instance.new("UIListLayout"); UIListLayout.Parent = ContentContainer; UIListLayout.Padding = UDim.new(0, 4); UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 local Elements = {}
 local function RefreshTabs(selectedTab) for _, el in pairs(Elements) do el.Frame.Visible = (el.Tab == selectedTab) end end
 local function CreateTabBtn(text)
-    local Btn = Instance.new("TextButton"); Btn.Parent = TabContainer; Btn.BackgroundColor3 = Colors.PanelBg; Btn.BorderSizePixel = 0; Btn.Size = UDim2.new(0, 75, 1, 0); Btn.Font = Enum.Font.GothamBold; Btn.Text = text; Btn.TextColor3 = Colors.SubText; Btn.TextSize = 11
-    local Corner = Instance.new("UICorner"); Corner.CornerRadius = UDim.new(0, 5); Corner.Parent = Btn
+    local Btn = Instance.new("TextButton"); Btn.Parent = TabContainer; Btn.BackgroundColor3 = Colors.PanelBg; Btn.BorderSizePixel = 0; Btn.Size = UDim2.new(0, 70, 1, 0); Btn.Font = Enum.Font.GothamBold; Btn.Text = text; Btn.TextColor3 = Colors.SubText; Btn.TextSize = 10
+    local Corner = Instance.new("UICorner"); Corner.CornerRadius = UDim.new(0, 4); Corner.Parent = Btn
     local BStroke = Instance.new("UIStroke"); BStroke.Color = Colors.AccentPurple; BStroke.Thickness = 1; BStroke.Parent = Btn; BStroke.Transparency = 1
     
     Btn.MouseButton1Click:Connect(function() 
@@ -134,11 +134,11 @@ end
 
 CreateTabBtn("EASTER"); CreateTabBtn("PVP"); CreateTabBtn("FUN"); CreateTabBtn("VISUAL"); CreateTabBtn("TP"); CreateTabBtn("MISC")
 
--- Component Creators (Smaller Heights)
+-- Component Creators (Super Thin Heights)
 local function CreateButton(tabName, text, icon, callback)
-    local Frame = Instance.new("Frame"); Frame.Parent = ContentContainer; Frame.BackgroundColor3 = Colors.PanelBg; Frame.Size = UDim2.new(1, 0, 0, 35); Frame.Visible = (tabName == "EASTER"); local Corner = Instance.new("UICorner"); Corner.CornerRadius = UDim.new(0, 6); Corner.Parent = Frame
-    local IconLbl = Instance.new("TextLabel"); IconLbl.Parent = Frame; IconLbl.BackgroundTransparency = 1; IconLbl.Position = UDim2.new(0, 8, 0, 0); IconLbl.Size = UDim2.new(0, 25, 1, 0); IconLbl.Text = icon; IconLbl.TextSize = 16
-    local TextLbl = Instance.new("TextLabel"); TextLbl.Parent = Frame; TextLbl.BackgroundTransparency = 1; TextLbl.Position = UDim2.new(0, 38, 0, 0); TextLbl.Size = UDim2.new(0.7, 0, 1, 0); TextLbl.Font = Enum.Font.GothamMedium; TextLbl.Text = text; TextLbl.TextColor3 = Colors.TextWhite; TextLbl.TextSize = 12; TextLbl.TextXAlignment = Enum.TextXAlignment.Left
+    local Frame = Instance.new("Frame"); Frame.Parent = ContentContainer; Frame.BackgroundColor3 = Colors.PanelBg; Frame.Size = UDim2.new(1, 0, 0, 30); Frame.Visible = (tabName == "EASTER"); local Corner = Instance.new("UICorner"); Corner.CornerRadius = UDim.new(0, 5); Corner.Parent = Frame
+    local IconLbl = Instance.new("TextLabel"); IconLbl.Parent = Frame; IconLbl.BackgroundTransparency = 1; IconLbl.Position = UDim2.new(0, 6, 0, 0); IconLbl.Size = UDim2.new(0, 20, 1, 0); IconLbl.Text = icon; IconLbl.TextSize = 14
+    local TextLbl = Instance.new("TextLabel"); TextLbl.Parent = Frame; TextLbl.BackgroundTransparency = 1; TextLbl.Position = UDim2.new(0, 32, 0, 0); TextLbl.Size = UDim2.new(0.7, 0, 1, 0); TextLbl.Font = Enum.Font.GothamMedium; TextLbl.Text = text; TextLbl.TextColor3 = Colors.TextWhite; TextLbl.TextSize = 11; TextLbl.TextXAlignment = Enum.TextXAlignment.Left
     local Btn = Instance.new("TextButton"); Btn.Parent = Frame; Btn.BackgroundTransparency = 1; Btn.Size = UDim2.new(1, 0, 1, 0); Btn.Text = ""
     Btn.MouseButton1Click:Connect(function() TweenService:Create(Frame, TweenInfo.new(0.1), {BackgroundColor3 = Color3.fromRGB(55, 55, 70)}):Play(); wait(0.1); TweenService:Create(Frame, TweenInfo.new(0.1), {BackgroundColor3 = Colors.PanelBg}):Play(); callback() end)
     table.insert(Elements, {Tab = tabName, Frame = Frame}); return Frame
@@ -146,27 +146,27 @@ end
 
 local function CreateToggle(tabName, text, icon, callback)
     local Frame = CreateButton(tabName, text, icon, function() end); local Btn = Frame:FindFirstChild("TextButton")
-    local Status = Instance.new("Frame"); Status.Parent = Frame; Status.BackgroundColor3 = Color3.fromRGB(60, 60, 75); Status.Position = UDim2.new(0.88, 0, 0.5, -5); Status.Size = UDim2.new(0, 10, 0, 10); local SCorner = Instance.new("UICorner"); SCorner.CornerRadius = UDim.new(1,0); SCorner.Parent = Status
+    local Status = Instance.new("Frame"); Status.Parent = Frame; Status.BackgroundColor3 = Color3.fromRGB(60, 60, 75); Status.Position = UDim2.new(0.9, 0, 0.5, -4); Status.Size = UDim2.new(0, 8, 0, 8); local SCorner = Instance.new("UICorner"); SCorner.CornerRadius = UDim.new(1,0); SCorner.Parent = Status
     local enabled = false
     Btn.MouseButton1Click:Connect(function() 
         enabled = not enabled
-        if enabled then TweenService:Create(Status, TweenInfo.new(0.3), {BackgroundColor3 = Colors.AccentGreen}):Play(); TweenService:Create(Frame:FindFirstChild("TextLabel", true), TweenInfo.new(0.3), {TextColor3 = Colors.AccentGreen}):Play()
-        else TweenService:Create(Status, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(60, 60, 75)}):Play(); TweenService:Create(Frame:FindFirstChild("TextLabel", true), TweenInfo.new(0.3), {TextColor3 = Colors.TextWhite}):Play() end
+        if enabled then TweenService:Create(Status, TweenInfo.new(0.2), {BackgroundColor3 = Colors.AccentGreen}):Play(); TweenService:Create(Frame:FindFirstChild("TextLabel", true), TweenInfo.new(0.2), {TextColor3 = Colors.AccentGreen}):Play()
+        else TweenService:Create(Status, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 60, 75)}):Play(); TweenService:Create(Frame:FindFirstChild("TextLabel", true), TweenInfo.new(0.2), {TextColor3 = Colors.TextWhite}):Play() end
         callback(enabled) 
     end); return Frame
 end
 
 local function CreateInput(tabName, placeholder, callback)
-    local Frame = Instance.new("Frame"); Frame.Parent = ContentContainer; Frame.BackgroundColor3 = Colors.PanelBg; Frame.Size = UDim2.new(1, 0, 0, 35); Frame.Visible = (tabName == "EASTER"); local Corner = Instance.new("UICorner"); Corner.CornerRadius = UDim.new(0, 6); Corner.Parent = Frame
-    local Box = Instance.new("TextBox"); Box.Parent = Frame; Box.BackgroundTransparency = 1; Box.Size = UDim2.new(1, -16, 1, 0); Box.Position = UDim2.new(0, 8, 0, 0); Box.Font = Enum.Font.Gotham; Box.PlaceholderText = placeholder; Box.Text = ""; Box.TextColor3 = Colors.TextWhite; Box.PlaceholderColor3 = Colors.SubText; Box.TextSize = 12
+    local Frame = Instance.new("Frame"); Frame.Parent = ContentContainer; Frame.BackgroundColor3 = Colors.PanelBg; Frame.Size = UDim2.new(1, 0, 0, 30); Frame.Visible = (tabName == "EASTER"); local Corner = Instance.new("UICorner"); Corner.CornerRadius = UDim.new(0, 5); Corner.Parent = Frame
+    local Box = Instance.new("TextBox"); Box.Parent = Frame; Box.BackgroundTransparency = 1; Box.Size = UDim2.new(1, -12, 1, 0); Box.Position = UDim2.new(0, 6, 0, 0); Box.Font = Enum.Font.Gotham; Box.PlaceholderText = placeholder; Box.Text = ""; Box.TextColor3 = Colors.TextWhite; Box.PlaceholderColor3 = Colors.SubText; Box.TextSize = 11; Box.TextXAlignment = Enum.TextXAlignment.Left
     Box.FocusLost:Connect(function() callback(Box.Text) end); table.insert(Elements, {Tab = tabName, Frame = Frame})
 end
 
 local function CreateSlider(tabName, text, min, max, default, callback)
-    local Frame = Instance.new("Frame"); Frame.Parent = ContentContainer; Frame.BackgroundColor3 = Colors.PanelBg; Frame.Size = UDim2.new(1, 0, 0, 45); Frame.Visible = (tabName == "EASTER"); local Corner = Instance.new("UICorner"); Corner.CornerRadius = UDim.new(0, 6); Corner.Parent = Frame
-    local TextLbl = Instance.new("TextLabel"); TextLbl.Parent = Frame; TextLbl.BackgroundTransparency = 1; TextLbl.Position = UDim2.new(0, 10, 0, 2); TextLbl.Size = UDim2.new(0.5, 0, 0, 18); TextLbl.Font = Enum.Font.GothamMedium; TextLbl.Text = text; TextLbl.TextColor3 = Colors.TextWhite; TextLbl.TextSize = 12; TextLbl.TextXAlignment = Enum.TextXAlignment.Left
-    local ValLbl = Instance.new("TextLabel"); ValLbl.Parent = Frame; ValLbl.BackgroundTransparency = 1; ValLbl.Position = UDim2.new(0.8, 0, 0, 2); ValLbl.Size = UDim2.new(0.15, 0, 0, 18); ValLbl.Font = Enum.Font.GothamBold; ValLbl.Text = tostring(default); ValLbl.TextColor3 = Colors.AccentPurple; ValLbl.TextSize = 12
-    local SliderBar = Instance.new("Frame"); SliderBar.Parent = Frame; SliderBar.BackgroundColor3 = Color3.fromRGB(60, 60, 75); SliderBar.Position = UDim2.new(0.05, 0, 0.65, 0); SliderBar.Size = UDim2.new(0.9, 0, 0, 5); local BarCorner = Instance.new("UICorner"); BarCorner.CornerRadius = UDim.new(1,0); BarCorner.Parent = SliderBar
+    local Frame = Instance.new("Frame"); Frame.Parent = ContentContainer; Frame.BackgroundColor3 = Colors.PanelBg; Frame.Size = UDim2.new(1, 0, 0, 35); Frame.Visible = (tabName == "EASTER"); local Corner = Instance.new("UICorner"); Corner.CornerRadius = UDim.new(0, 5); Corner.Parent = Frame
+    local TextLbl = Instance.new("TextLabel"); TextLbl.Parent = Frame; TextLbl.BackgroundTransparency = 1; TextLbl.Position = UDim2.new(0, 8, 0, 2); TextLbl.Size = UDim2.new(0.5, 0, 0, 16); TextLbl.Font = Enum.Font.GothamMedium; TextLbl.Text = text; TextLbl.TextColor3 = Colors.TextWhite; TextLbl.TextSize = 11; TextLbl.TextXAlignment = Enum.TextXAlignment.Left
+    local ValLbl = Instance.new("TextLabel"); ValLbl.Parent = Frame; ValLbl.BackgroundTransparency = 1; ValLbl.Position = UDim2.new(0.8, 0, 0, 2); ValLbl.Size = UDim2.new(0.15, 0, 0, 16); ValLbl.Font = Enum.Font.GothamBold; ValLbl.Text = tostring(default); ValLbl.TextColor3 = Colors.AccentPurple; ValLbl.TextSize = 11
+    local SliderBar = Instance.new("Frame"); SliderBar.Parent = Frame; SliderBar.BackgroundColor3 = Color3.fromRGB(60, 60, 75); SliderBar.Position = UDim2.new(0.05, 0, 0.65, 0); SliderBar.Size = UDim2.new(0.9, 0, 0, 4); local BarCorner = Instance.new("UICorner"); BarCorner.CornerRadius = UDim.new(1,0); BarCorner.Parent = SliderBar
     local Fill = Instance.new("Frame"); Fill.Parent = SliderBar; Fill.BackgroundColor3 = Colors.AccentPurple; Fill.Size = UDim2.new((default - min)/(max - min), 0, 1, 0); local FillCorner = Instance.new("UICorner"); FillCorner.CornerRadius = UDim.new(1,0); FillCorner.Parent = Fill
     local Trigger = Instance.new("TextButton"); Trigger.Parent = SliderBar; Trigger.BackgroundTransparency = 1; Trigger.Size = UDim2.new(1, 0, 1, 0); Trigger.Text = ""
     local dragging = false; Trigger.MouseButton1Down:Connect(function() dragging = true end); UserInputService.InputEnded:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end end)
@@ -176,7 +176,7 @@ end
 
 local function CreateKeybind(tabName, text, defaultKey, callback)
     local Frame = CreateButton(tabName, text, "⌨️", function() end); local Btn = Frame:FindFirstChild("TextButton")
-    local BindLbl = Instance.new("TextLabel"); BindLbl.Parent = Frame; BindLbl.BackgroundTransparency = 1; BindLbl.Position = UDim2.new(0.7, 0, 0, 0); BindLbl.Size = UDim2.new(0.25, 0, 1, 0); BindLbl.Font = Enum.Font.GothamBold; BindLbl.Text = "[" .. defaultKey.Name .. "]"; BindLbl.TextColor3 = Colors.SubText; BindLbl.TextSize = 11
+    local BindLbl = Instance.new("TextLabel"); BindLbl.Parent = Frame; BindLbl.BackgroundTransparency = 1; BindLbl.Position = UDim2.new(0.7, 0, 0, 0); BindLbl.Size = UDim2.new(0.25, 0, 1, 0); BindLbl.Font = Enum.Font.GothamBold; BindLbl.Text = "[" .. defaultKey.Name .. "]"; BindLbl.TextColor3 = Colors.SubText; BindLbl.TextSize = 10
     local binding = false; Btn.MouseButton1Click:Connect(function() binding = true; BindLbl.Text = "[...]"; BindLbl.TextColor3 = Colors.AccentGreen end)
     UserInputService.InputBegan:Connect(function(input) if binding and input.UserInputType == Enum.UserInputType.Keyboard then binding = false; BindLbl.Text = "[" .. input.KeyCode.Name .. "]"; BindLbl.TextColor3 = Colors.AccentPurple; callback(input.KeyCode) end end)
     table.insert(Elements, {Tab = tabName, Frame = Frame})
@@ -269,11 +269,11 @@ CreateSlider("TP", "WalkSpeed", 16, 200, 16, function(val) Settings.WalkSpeed = 
 CreateToggle("TP", "LOCK SPEED", "🔒", function(state) Settings.wsLocked = state end)
 task.spawn(function() while true do wait(); if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then if Settings.wsLocked then LocalPlayer.Character.Humanoid.WalkSpeed = Settings.WalkSpeed end end end end)
 
--- Stats Footer (COMPACT)
-local StatsPanel = Instance.new("Frame"); StatsPanel.Parent = MainFrame; StatsPanel.BackgroundColor3 = Color3.fromRGB(15, 15, 20); StatsPanel.BorderSizePixel = 0; StatsPanel.Position = UDim2.new(0, 10, 1, -48); StatsPanel.Size = UDim2.new(1, -20, 0, 40)
-local SP_Corner = Instance.new("UICorner"); SP_Corner.CornerRadius = UDim.new(0, 8); SP_Corner.Parent = StatsPanel
-local CPH_Display = Instance.new("TextLabel"); CPH_Display.Parent = StatsPanel; CPH_Display.BackgroundTransparency = 1; CPH_Display.Position = UDim2.new(0.05, 0, 0.1, 0); CPH_Display.Size = UDim2.new(0.9, 0, 0.4, 0); CPH_Display.Font = Enum.Font.GothamBold; CPH_Display.TextColor3 = Colors.AccentPurple; CPH_Display.TextSize = 11; CPH_Display.TextXAlignment = Enum.TextXAlignment.Left; CPH_Display.Text = "💰 CPH: 0   |   ⏱️ 00:00"
-local Coll_Display = Instance.new("TextLabel"); Coll_Display.Parent = StatsPanel; Coll_Display.BackgroundTransparency = 1; Coll_Display.Position = UDim2.new(0.05, 0, 0.5, 0); Coll_Display.Size = UDim2.new(0.9, 0, 0.4, 0); Coll_Display.Font = Enum.Font.GothamMedium; Coll_Display.TextColor3 = Colors.TextWhite; Coll_Display.TextSize = 11; Coll_Display.TextXAlignment = Enum.TextXAlignment.Left; Coll_Display.Text = "🧺 Collected: 0   |   Bag: 0/40"
+-- Stats Footer (ULTRA COMPACT - JEDEN RIADOK)
+local StatsPanel = Instance.new("Frame"); StatsPanel.Parent = MainFrame; StatsPanel.BackgroundColor3 = Color3.fromRGB(15, 15, 20); StatsPanel.BorderSizePixel = 0; StatsPanel.Position = UDim2.new(0, 6, 1, -26); StatsPanel.Size = UDim2.new(1, -12, 0, 20)
+local SP_Corner = Instance.new("UICorner"); SP_Corner.CornerRadius = UDim.new(0, 5); SP_Corner.Parent = StatsPanel
+local StatsText = Instance.new("TextLabel"); StatsText.Parent = StatsPanel; StatsText.BackgroundTransparency = 1; StatsText.Size = UDim2.new(1, 0, 1, 0); StatsText.Font = Enum.Font.GothamBold; StatsText.TextColor3 = Colors.TextWhite; StatsText.TextSize = 10; StatsText.RichText = true
+StatsText.Text = "💰 <font color='#FFDF00'>0</font>  |  🧺 <font color='#B496FF'>0</font>  |  🎒 0/40  |  ⏱️ 00:00"
 
 task.spawn(function()
     while true do
@@ -281,8 +281,8 @@ task.spawn(function()
         if Settings.AutoFarmCoins then
             local elapsed = math.floor(tick() - Stats.StartTime)
             if elapsed > 0 then Stats.CPH = math.floor((Stats.Collected / elapsed) * 3600) end
-            CPH_Display.Text = "💰 CPH: " .. Stats.CPH .. "   |   ⏱️ " .. string.format("%02d:%02d", math.floor(elapsed/60), elapsed%60)
-            Coll_Display.Text = "🧺 Collected: " .. Stats.Collected .. "   |   Bag: " .. Stats.Bag .. "/" .. Stats.MaxBag
+            local timeStr = string.format("%02d:%02d", math.floor(elapsed/60), elapsed%60)
+            StatsText.Text = string.format("💰 <font color='#FFDF00'>%s</font>  |  🧺 <font color='#B496FF'>%s</font>  |  🎒 %s/%s  |  ⏱️ %s", Stats.CPH, Stats.Collected, Stats.Bag, Stats.MaxBag, timeStr)
         end
     end
 end)
@@ -290,12 +290,12 @@ end)
 -- Anti-AFK
 task.spawn(function() while true do wait(60); if Settings.AntiAfk then VirtualUser:CaptureController(); VirtualUser:ClickButton2(Vector2.new()) end end end)
 
--- Minimize Button
-local MinBtn = Instance.new("ImageButton"); MinBtn.Parent = ScreenGui; MinBtn.Name = "OpenGift"; MinBtn.BackgroundColor3 = Colors.Background; MinBtn.Position = UDim2.new(0, 20, 0.9, -20); MinBtn.Size = UDim2.new(0, 40, 0, 40)
+-- Minimize Button (Zmenšený)
+local MinBtn = Instance.new("ImageButton"); MinBtn.Parent = ScreenGui; MinBtn.Name = "OpenGift"; MinBtn.BackgroundColor3 = Colors.Background; MinBtn.Position = UDim2.new(0, 10, 0.9, -30); MinBtn.Size = UDim2.new(0, 35, 0, 35)
 local MCorner = Instance.new("UICorner"); MCorner.CornerRadius = UDim.new(1,0); MCorner.Parent = MinBtn
 local MStroke = Instance.new("UIStroke"); MStroke.Color = Colors.AccentPurple; MStroke.Thickness = 2; MStroke.Parent = MinBtn
-local OpenLbl = Instance.new("TextLabel"); OpenLbl.Parent = MinBtn; OpenLbl.BackgroundTransparency = 1; OpenLbl.Size = UDim2.new(1,0,1,0); OpenLbl.Text = "🐰"; OpenLbl.TextSize = 20
+local OpenLbl = Instance.new("TextLabel"); OpenLbl.Parent = MinBtn; OpenLbl.BackgroundTransparency = 1; OpenLbl.Size = UDim2.new(1,0,1,0); OpenLbl.Text = "🐰"; OpenLbl.TextSize = 18
 local visible = true
 MinBtn.MouseButton1Click:Connect(function() visible = not visible; MainFrame.Visible = visible end)
 
-print("🐰 Premium Mobile Easter Hub Loaded! 📱")
+print("🐰 Ultra Mobile Easter Hub Loaded! 📱")
